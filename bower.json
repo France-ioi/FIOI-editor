@@ -17,6 +17,7 @@
   "dependencies": {
     "codemirror": "~5.4.0",
     "jquery": "~2.1.4",
-    "jquery-ui": "~1.11.4"
+    "jquery-ui": "~1.11.4",
+    "blockui": "*"
   }
 }

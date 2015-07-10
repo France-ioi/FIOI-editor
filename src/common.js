@@ -83,17 +83,13 @@ function saveAjax(message, callBackOk, callBackFailed, testToEvaluate, sourceToE
   }
 		
   params['bBasicEditorMode'] = $("#bIsBasic").val();
-  params['idUser'] = idUser;
-
-  var jsonStr = YAHOO.lang.JSON.stringify(params);
-  var data = {json: jsonStr};
 
   setToNotModified();
 
   $.ajax({
     type:'POST',
     url: "editorAjax.php?sAction=save&sToken=" + sToken + "&sPlatform=" + sPlatform,
-    data: data,
+    data: params,
     dataType: "json",
     async: (message == ''),
     success: function(result, textStatus, XMLHttpRequest) {
@@ -109,7 +105,6 @@ function saveAjax(message, callBackOk, callBackFailed, testToEvaluate, sourceToE
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) {
       //setToModified();
-      alertAJAXError(XMLHttpRequest, textStatus, errorThrown)
       callBackFailed(translate("invalidAnswer"));  
     },
     complete: function() {

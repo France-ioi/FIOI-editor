@@ -7,6 +7,7 @@
     <script type="text/javascript" src="bower_components/codemirror/lib/codemirror.js"></script>
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="bower_components/blockui/jquery.blockUI.js"></script>
     <script type="text/javascript" src="src/editor.js"></script>
     <script type="text/javascript" src="src/common.js"></script>
     <script type="text/javascript" src="src/task.js"></script>
@@ -17,15 +18,25 @@
     <link href="src/editor.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <div id="sourcesEditor"></div>
-    <script>
-      var sToken = '';
-      var sPlatform = '';
-      var replace_tab_by_spaces = "3";
-      var editorLang = "fr";
-      var bLycees = false;
-      var bUserTests = false;
-      startEditor();
-    </script>
+    Langage du fichier :
+    <select id="selectLanguageSelection" name="sLangProg">
+      <option value="C">C</option>
+      <option value="C++">C++</option>
+      <option value="Pascal">Pascal</option>
+      <option value="OCaml">OCaml</option>
+      <option value="Java">Java</option>
+      <option value="JavaScool">JavaScool</option>
+      <option value="Python" selected="1">Python</option>
+   </select>
+   Mode d'édition :
+   <select id="bIsBasic">
+      <option value="1" selected="1">Basic</option>
+      <option value="0">Expert</option>
+   </select>
+   <a href="#" id="linkUpload">Uploader directement un fichier</a>
+   <br>
+   <div id="sourcesEditor"></div>
+   <input style="padding-right:20px;padding-left:20px" id="buttonSave" name="buttonSave" type="button" value="Enregistrer tous les changements">
+   <script type="text/javascript" src="demo.js"></script>
   </body>
 </html>
