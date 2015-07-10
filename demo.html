@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>FIOI_editor demo</title>
+    <script type="text/javascript" src="bower_components/codemirror/lib/codemirror.js"></script>
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="src/editor.js"></script>
+    <script type="text/javascript" src="src/common.js"></script>
+    <script type="text/javascript" src="src/task.js"></script>
+    <script type="text/javascript" src="src/editor.codemirror.js"></script>
+    <script type="text/javascript" src="src/tester.js"></script>
+    <script type="text/javascript" src="src/evaluator.js"></script>
+    <link href="bower_components/codemirror/lib/codemirror.css" rel="stylesheet" type="text/css" />
+    <link href="src/editor.css" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <div id="sourcesEditor"></div>
+    <script>
+      var sToken = '';
+      var sPlatform = '';
+      var replace_tab_by_spaces = "3";
+      var editorLang = "fr";
+      var bLycees = false;
+      var bUserTests = false;
+      startEditor();
+    </script>
+  </body>
+</html>
