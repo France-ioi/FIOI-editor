@@ -23,7 +23,7 @@ class FIOIEditorAjax {
       }
       $pc_key = $platform['pc_key'];
       try {
-         $params = static::decodeToken($_GET['sToken']);
+         $params = static::decodeToken($_GET['sToken'], $pc_key);
       } catch (Exception $e) {
          echo json_encode(array('bSuccess' => false, 'sError' => $e->getMessage()));
          exit;
