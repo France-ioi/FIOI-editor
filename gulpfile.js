@@ -9,7 +9,7 @@ var concat = require('gulp-concat');
 gulp.task('css', function() {
   return gulp.src(['src/editor.css'])
     .pipe(minifyCSS())
-    .pipe(concat('FIOI_editor.min.css'))
+    .pipe(concat('FIOI-editor.min.css'))
     .pipe(gulp.dest('dst'));
 });
 
@@ -18,7 +18,7 @@ gulp.task('js', function() {
     .pipe(sourcemaps.init())
     .pipe(uglify())
     .pipe(sourcemaps.write())
-    .pipe(concat('FIOI_editor.min.js'))
+    .pipe(concat('FIOI-editor.min.js'))
     .pipe(gulp.dest('dst'));
 });
 

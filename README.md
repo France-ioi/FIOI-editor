@@ -6,8 +6,8 @@ Stateful PHP editor based on CodeMirror, to be used in PEM tasks.
 
 Install it through composer and bower:
 
-    bower install France-ioi/FIOI_editor
-    composer install France-ioi/FIOI_editor
+    bower install France-ioi/FIOI-editor
+    composer install France-ioi/FIOI-editor
 
 Then you can implement 
 

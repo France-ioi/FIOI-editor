@@ -1,9 +1,13 @@
 {
-  "name": "FIOI_editor",
+  "name": "FIOI-editor",
   "version": "0.1.0",
-  "homepage": "https://github.com/France-ioi/FIOI_editor",
+  "homepage": "https://github.com/France-ioi/FIOI-editor",
   "authors": [
     "France IOI"
+  ],
+  "main": [
+    "dst/FIOI-editor.min.js",
+    "dst/FIOI-editor.min.css"
   ],
   "description": "PHP stateful editor based on codemirror",
   "license": "MIT",

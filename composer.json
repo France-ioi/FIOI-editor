@@ -1,5 +1,5 @@
 {
-    "name": "France-ioi/FIOI_editor",
+    "name": "France-ioi/FIOI-editor",
     "autoload": {
         "psr-0" : {
             "FIOIEditorAjax" : ""
