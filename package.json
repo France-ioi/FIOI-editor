@@ -2,20 +2,20 @@
   "name": "fioi-editor",
   "version": "0.1.0",
   "description": "Stateful PHP editor based on CodeMirror, to be used in PEM tasks.",
-  "main": "dst/FIOI-editor.min.js",
+  "main": "dst/fioi-editor.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/France-ioi/FIOI-editor.git"
+    "url": "git+https://github.com/France-ioi/fioi-editor.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/France-ioi/FIOI-editor/issues"
+    "url": "https://github.com/France-ioi/fioi-editor/issues"
   },
-  "homepage": "https://github.com/France-ioi/FIOI-editor#readme",
+  "homepage": "https://github.com/France-ioi/fioi-editor#readme",
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",
