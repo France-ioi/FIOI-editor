@@ -11,7 +11,7 @@ function save() {
       dirty = false;
     },
     function(errorTxt) { 
-      alert(translate("saveError") + errorTxt);
+      console.error(translate("saveError") + errorTxt);
     }
   );
 }
@@ -118,6 +118,9 @@ function newTest() {
 
 function selectFirstForComboLanguage() {
   var selectedLang = $("#selectLanguageSelection").val();
+  if (!selectedLang) {
+    selectedLang = '';
+  }
   var sources = $('#sourcesEditor').editor('getAllDocuments');
   for (key in sources) {
     if (selectedLang == getLanguageForServer(sources[key].syntax)) {
@@ -175,8 +178,8 @@ function startEditor() {
   sourcesEditor.editor('option', 'switchCallback', updateComboLanguage);
   var testsEditor = $('#testsEditor').editor();
 
-  $('#tests_results').tester();
-  $('#eval_results').evaluator();
+//  $('#tests_results').tester();
+//  $('#eval_results').evaluator();
   
   $("#uploadForm").hide();    
   $("#linkEditorOnline, #submitArea").show();
@@ -194,16 +197,16 @@ function startEditor() {
     $("#testsArea").hide();
   }
   initButtons();
-  
-  for (id in userData.aSources) {
-    var source = userData.aSources[id];
+  for(var i= 0; i < userData.aSources.length; i++) {
+    var source = userData.aSources[i];
+    var params = source.sParams ? JSON.parse(source.sParams) : {};
     sourcesEditor.editor("open", source.sName, source.sName,
-        source.sSource, getLanguageFromServer(source.sLang));
+        source.sSource, getLanguageFromServer(params.sLangProg));
   }
   selectFirstForComboLanguage();
-
-  for (id in userData.aTests) {
-    var test = userData.aTests[id];
+   console.error(userData);
+  for(i= 0; i < userData.aTests.length; i++) {
+    var test = userData.aTests[i];
     testsEditor.editor("openPair", test.sName, test.sName,
         "in", test.sInput, "out", test.sOutput);
   }

@@ -1,5 +1,17 @@
 // TODO(julienm): Move/delete this code.
 
+function getURLParameter(name) {
+  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
+}
+
+var sToken = getURLParameter('sToken');
+var sPlatform = getURLParameter('sPlatform');
+var replace_tab_by_spaces = "3";
+var editorLang = "fr";
+var bLycees = false;
+var bUserTests = false;
+var ajaxUrl = 'editor.php';
+
 var saveRunning;
 var timeOutCall;
 
@@ -12,13 +24,13 @@ function getFocusEditor() {
 }
 
 function getLanguageForServer(sLangProg) {
-  var ext2Lang = {'text/x-csrc':'C','text/x-c++src':'C++','text/x-ocaml':'OCaml','text/x-pascal':'Pascal','text/x-java':'Java','text/x-javascool':'Javascool','text/x-python':'Python','':'','':''};
-  return ext2Lang[sLangProg];
+  var ext2Lang = {'text/x-csrc':'C','text/x-c++src':'C++','text/x-ocaml':'OCaml','text/x-pascal':'Pascal','text/x-java':'Java','text/x-javascool':'Javascool','text/x-python':'Python', '':''};
+  return ext2Lang[sLangProg ? sLangProg : ''];
 }
 
 function getLanguageFromServer(sLangProg) {
-  var ext2Lang = {'C':'text/x-csrc','C++':'text/x-c++src','OCaml':'text/x-ocaml','Pascal':'text/x-pascal','Java':'text/x-java','JavaScool':'text/x-javascool','Python':'text/x-python','':'','':''};
-  return ext2Lang[sLangProg];
+  var ext2Lang = {'C':'text/x-csrc','C++':'text/x-c++src','OCaml':'text/x-ocaml','Pascal':'text/x-pascal','Java':'text/x-java','JavaScool':'text/x-javascool','Python':'text/x-python', '':''};
+  return ext2Lang[sLangProg ? sLangProg : ''];
 }	
 
 function callAjax(message, callBackOk, callBackFailed, testToEvaluate, sourceToEvaluate, bUnblock) {
@@ -52,7 +64,7 @@ function saveAjax(message, callBackOk, callBackFailed, testToEvaluate, sourceToE
   $.each(sources, function(key, value) {
     params['sources'][key] = {
       'sSource' : value.text,
-      'sLangProg' : getLanguageForServer(value.syntax)
+      'sParams' : JSON.stringify({sLangProg: getLanguageForServer(value.syntax)})
      };
   });
 
@@ -88,19 +100,19 @@ function saveAjax(message, callBackOk, callBackFailed, testToEvaluate, sourceToE
 
   $.ajax({
     type:'POST',
-    url: "editorAjax.php?sAction=save&sToken=" + sToken + "&sPlatform=" + sPlatform,
+    url: ajaxUrl+"?sAction=save&sToken=" + sToken + "&sPlatform=" + sPlatform,
     data: params,
     dataType: "json",
     async: (message == ''),
     success: function(result, textStatus, XMLHttpRequest) {
       if (!result) {
         return callBackFailed(translate("invalidAnswer"));
-      } else if (result.success) {
+      } else if (result.bSuccess) {
         // Mark all files as not modified
         //setToNotModified();
         callBackOk(result.html);
       } else {
-        callBackFailed(result.error);
+        callBackFailed(result.sError);
       }
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -121,7 +133,7 @@ function getUserData() {
   var userData;
   $.ajax({
     type: 'POST',
-    url: 'editorAjax.php?sAction=get&sToken=' + sToken + '&sPlatform=' + sPlatform,
+    url: ajaxUrl+'?sAction=get&sToken=' + sToken + '&sPlatform=' + sPlatform,
     dataType: "json",
     async: false,
     success: function(result, textStatus, XMLHttpRequest) {

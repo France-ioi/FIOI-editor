@@ -2,6 +2,10 @@
    width:762px;
 }
 
+#testsEditor {
+   width:762px;
+}
+
 .CodeMirror {
   text-align: left;
   border: 1px solid #CCCCCC;
@@ -50,4 +54,8 @@ ul#docsTabList li.active a {
 
 #docsTabList a:hover {
   background: #FFFFFF;
+}
+
+.tooltip {
+   display:none;
 }

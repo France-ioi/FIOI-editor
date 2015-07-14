@@ -1,5 +1,9 @@
 {
-   "require": {
-      "namshi/jose": "*"
-   }
+    "name": "France-ioi/FIOI_editor",
+    "autoload": {
+        "psr-0" : {
+            "FIOIEditorAjax" : ""
+        }
+    }
 }
+
