@@ -23,7 +23,7 @@ class FIOIEditorAjax {
       }
       $pc_key = $platform['pc_key'];
       try {
-         $params = self::decodeToken($_GET['sToken']);
+         $params = static::decodeToken($_GET['sToken']);
       } catch (Exception $e) {
          echo json_encode(array('bSuccess' => false, 'sError' => $e->getMessage()));
          exit;
@@ -82,16 +82,16 @@ class FIOIEditorAjax {
          echo json_encode(array('bSuccess' => false, 'sError' => 'missing sToken or sPlatform'));
          exit;
       }
-      $params = self::getTokenParams($_GET['sToken'], $_GET['sPlatform'], $db);
+      $params = static::getTokenParams($_GET['sToken'], $_GET['sPlatform'], $db);
       if ($_GET['sAction'] == 'get') {
-         $sources = self::getSources($params, $db);
-         $tests = self::getTests($params, $db);
+         $sources = static::getSources($params, $db);
+         $tests = static::getTests($params, $db);
          echo json_encode(array('bSuccess' => true, 'sError' => false, 'aData' => array('aSources' => $sources, 'aTests' => $tests)));
          exit;
       }
       if ($_GET['sAction'] == 'save') {
-         self::saveSources($params, $db);
-         self::saveTests($params, $db);
+         static::saveSources($params, $db);
+         static::saveTests($params, $db);
          echo json_encode(array('bSuccess' => true, 'sError' => false));
          exit;
       }
