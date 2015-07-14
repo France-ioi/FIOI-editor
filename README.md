@@ -4,12 +4,24 @@ Stateful PHP editor based on CodeMirror, to be used in PEM tasks.
 
 ## Installation
 
-Install it through composer and bower:
+Install the javascript part through bower:
 
     bower install France-ioi/fioi-editor
-    composer install France-ioi/fioi-editor
 
-Then you can implement 
+and the php part (optionally) with composer through a `composer.json` like:
+
+    {
+       "repositories": [{
+          "type": "vcs",
+          "url": "http://github.com/France-ioi/fioi-editor"
+       }],
+       "require": {
+          "namshi/jose": "*",
+          "France-ioi/fioi-editor": "*@dev"
+       }
+    }
+
+See the demo for a simple use case.
 
 ## Trying the demo
 

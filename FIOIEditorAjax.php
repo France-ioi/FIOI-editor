@@ -52,6 +52,8 @@ class FIOIEditorAjax {
 
    public static function saveSources($params, $db) {
       $db->exec('delete from tm_source_codes where idUser = '.$db->quote($params['idUser']).' and idTask = '.$db->quote($params['idTask']).' and idPlatform = '.$db->quote($params['idPlatform']));
+      if (!count($_POST['sources']))
+         return;
       $query = 'insert into tm_source_codes (idUser, idTask, idPlatform, sName, sSource, sParams) values';
       $rows = array();
       foreach($_POST['sources'] as $sName => $sourceCode) {
@@ -63,12 +65,15 @@ class FIOIEditorAjax {
 
    public static function saveTests($params, $db) {
       $db->exec('delete from tm_tasks_tests where sGroupType = \'User\' and idUser = '.$db->quote($params['idUser']).' and idTask = '.$db->quote($params['idTask']).' and idPlatform = '.$db->quote($params['idPlatform']));
+      if (!count($_POST['tests']))
+         return;
       $query = 'insert into tm_tasks_tests (idUser, idTask, idPlatform, sName, sGroupType, sInput, sOutput) values';
       $rows = array();
       foreach($_POST['tests'] as $sName => $test) {
          $rows[] = '('.$db->quote($params['idUser']).', '.$db->quote($params['idTask']).', '.$db->quote($params['idPlatform']).', '.$db->quote($sName).', \'User\', '.$db->quote($test['sInput']).', '.$db->quote($test['sOutput']).')';
       }
       $query .= implode(', ', $rows);
+      var_dump($query);
       $db->exec($query);
    }
 
@@ -85,8 +90,8 @@ class FIOIEditorAjax {
          exit;
       }
       if ($_GET['sAction'] == 'save') {
-         self::saveSources($params);
-         self::saveTests($params);
+         self::saveSources($params, $db);
+         self::saveTests($params, $db);
          echo json_encode(array('bSuccess' => true, 'sError' => false));
          exit;
       }
