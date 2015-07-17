@@ -13,7 +13,7 @@ class FIOIEditorAjax {
    }
 
    public static function getTokenParams($sToken, $sPlatform, $db) {
-      $stmt = $db->prepare('select id, pc_key from tm_platforms where uri = :uri');
+      $stmt = $db->prepare('select ID, pc_key from tm_platforms where uri = :uri');
       $platform_uri = $_GET['sPlatform'];
       $stmt->execute(array('uri' => $platform_uri));
       $platform = $stmt->fetch();
@@ -32,7 +32,7 @@ class FIOIEditorAjax {
          echo json_encode(array('bSuccess' => false, 'sError' => 'missing idUser or idTask in token'));
          exit;
       }
-      $params['idPlatform'] = $platform['id'];
+      $params['idPlatform'] = $platform['ID'];
       return $params;
    }
 
