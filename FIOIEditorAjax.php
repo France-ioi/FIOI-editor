@@ -37,35 +37,44 @@ class FIOIEditorAjax {
    }
 
    public static function getSources($params, $db) {
-      $stmt = $db->prepare('select sDate, sParams, sSource, sName, bEditable from tm_source_codes where idTask = :idTask and idUser = :idUser and idPlatform = :idPlatform;');
+      $stmt = $db->prepare('select sDate, sParams, sSource, sName, bEditable, bActive from tm_source_codes where idTask = :idTask and idUser = :idUser and idPlatform = :idPlatform order by sName asc;');
       $stmt->execute(array('idTask' => $params['idTask'], 'idUser' => $params['idUser'], 'idPlatform' => $params['idPlatform']));
       $sources = $stmt->fetchAll();
       return $sources;
    }
 
    public static function getTests($params, $db) {
-      $stmt = $db->prepare('select sGroupType, iRank, sName, sInput, sOutput from tm_tasks_tests where idTask = :idTask and ((idUser = :idUser and idPlatform = :idPlatform and sGroupType = \'User\') or sGroupType = \'Example\');');
+      $stmt = $db->prepare('select sGroupType, iRank, sName, sInput, sOutput from tm_tasks_tests where idTask = :idTask and ((idUser = :idUser and idPlatform = :idPlatform and sGroupType = \'User\') or sGroupType = \'Example\')  order by sName asc;');
       $stmt->execute(array('idTask' => $params['idTask'], 'idUser' => $params['idUser'], 'idPlatform' => $params['idPlatform']));
       $tests = $stmt->fetchAll();
       return $tests;
+   }
+
+   public static function boolToSql($bool) {
+      if ($bool == 'true') {
+         return '1';
+      } else {
+         return '0';
+      }
    }
 
    public static function saveSources($params, $db) {
       $db->exec('delete from tm_source_codes where idUser = '.$db->quote($params['idUser']).' and idTask = '.$db->quote($params['idTask']).' and idPlatform = '.$db->quote($params['idPlatform']));
       if (!count($_POST['sources']))
          return;
-      $query = 'insert into tm_source_codes (idUser, idTask, idPlatform, sName, sSource, sParams) values';
+      $query = 'insert into tm_source_codes (idUser, idTask, idPlatform, sName, sSource, sParams, bActive) values';
       $rows = array();
       foreach($_POST['sources'] as $sName => $sourceCode) {
-         $rows[] = '('.$db->quote($params['idUser']).', '.$db->quote($params['idTask']).', '.$db->quote($params['idPlatform']).', '.$db->quote($sName).', '.$db->quote($sourceCode['sSource']).', '.$db->quote($sourceCode['sParams']).')';
+         $rows[] = '('.$db->quote($params['idUser']).', '.$db->quote($params['idTask']).', '.$db->quote($params['idPlatform']).', '.$db->quote($sName).', '.$db->quote($sourceCode['sSource']).', '.$db->quote($sourceCode['sParams']).', '.self::boolToSql($sourceCode['bActive']).')';
       }
       $query .= implode(', ', $rows);
+      error_log($query);
       $db->exec($query);
    }
 
    public static function saveTests($params, $db) {
       $db->exec('delete from tm_tasks_tests where sGroupType = \'User\' and idUser = '.$db->quote($params['idUser']).' and idTask = '.$db->quote($params['idTask']).' and idPlatform = '.$db->quote($params['idPlatform']));
-      if (!count($_POST['tests']))
+      if (!isset($_POST['tests']) || !count($_POST['tests']))
          return;
       $query = 'insert into tm_tasks_tests (idUser, idTask, idPlatform, sName, sGroupType, sInput, sOutput) values';
       $rows = array();
