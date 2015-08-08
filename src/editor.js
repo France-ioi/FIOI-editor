@@ -147,7 +147,11 @@ $.widget("fioi.editor", {
   getCurrentDocument: function() {
     return this.getDocument(this._currentDoc);
   },
-  
+
+  getCurrentDocumentId: function() {
+    return this._currentDoc;
+  },
+
   _getContainer: function(id) {
     return this.element.find('div[id=\'doc_' + id + '\']');
   },

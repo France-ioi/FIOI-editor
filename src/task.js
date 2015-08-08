@@ -197,14 +197,21 @@ function startEditor() {
     $("#testsArea").hide();
   }
   initButtons();
+  var idActive = null;
   for(var i= 0; i < userData.aSources.length; i++) {
     var source = userData.aSources[i];
     var params = source.sParams ? JSON.parse(source.sParams) : {};
     sourcesEditor.editor("open", source.sName, source.sName,
         source.sSource, getLanguageFromServer(params.sLangProg));
+    if (source.bActive == '1') {
+      idActive = source.sName;
+    }
+  }
+  if (idActive) {
+    // TODO: doesn't work...
+    sourcesEditor.editor("show", idActive);
   }
   selectFirstForComboLanguage();
-   console.error(userData);
   for(i= 0; i < userData.aTests.length; i++) {
     var test = userData.aTests[i];
     testsEditor.editor("openPair", test.sName, test.sName,

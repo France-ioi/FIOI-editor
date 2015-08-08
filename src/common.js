@@ -59,11 +59,13 @@ function saveAjax(message, callBackOk, callBackFailed, testToEvaluate, sourceToE
   // Acumulate data
   var params = {};
 
+  var currentId = $('#sourcesEditor').editor('getCurrentDocumentId');
   var sources = $('#sourcesEditor').editor('getAllDocuments');
   params['sources'] = {};
   $.each(sources, function(key, value) {
     params['sources'][key] = {
       'sSource' : value.text,
+      'bActive' : (key == currentId),
       'sParams' : JSON.stringify({sLangProg: getLanguageForServer(value.syntax)})
      };
   });
