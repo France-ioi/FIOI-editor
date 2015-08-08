@@ -4,7 +4,7 @@
  * Very simple implementation of EditorAjax class. Inherit from it and implement
  * decodeToken. Requires tables tm_platforms and tm_source_codes.
  *
- * Also requires getTokenParams($sToken, $sPlatform, $db) in the global scope.
+ * Also requires getPlatformTokenParams($sToken, $sPlatform, $db) in the global scope.
  */
 
 class FIOIEditorAjax {
@@ -64,7 +64,7 @@ class FIOIEditorAjax {
          echo json_encode(array('bSuccess' => false, 'sError' => 'missing sToken or sPlatform'));
          exit;
       }
-      $params = getTokenParams($_GET['sToken'], $_GET['sPlatform'], $db);
+      $params = getPlatformTokenParams($_GET['sToken'], $_GET['sPlatform'], $db);
       if ($_GET['sAction'] == 'get') {
          $sources = static::getSources($params, $db);
          $tests = static::getTests($params, $db);
