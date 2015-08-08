@@ -10,7 +10,7 @@
 class FIOIEditorAjax {
 
    public static function getSources($params, $db) {
-      $stmt = $db->prepare('select sDate, sParams, sSource, sName, bEditable, bActive from tm_source_codes where idTask = :idTask and idUser = :idUser and idPlatform = :idPlatform order by sName asc;');
+      $stmt = $db->prepare('select sDate, sParams, sSource, sName, bEditable, bActive from tm_source_codes where idTask = :idTask and idUser = :idUser and idPlatform = :idPlatform and bSubmission = \'0\' order by sName asc;');
       $stmt->execute(array('idTask' => $params['idTaskLocal'], 'idUser' => $params['idUser'], 'idPlatform' => $params['idPlatform']));
       $sources = $stmt->fetchAll();
       return $sources;
@@ -32,7 +32,7 @@ class FIOIEditorAjax {
    }
 
    public static function saveSources($params, $db) {
-      $db->exec('delete from tm_source_codes where idUser = '.$db->quote($params['idUser']).' and idTask = '.$db->quote($params['idTaskLocal']).' and idPlatform = '.$db->quote($params['idPlatform']));
+      $db->exec('delete from tm_source_codes where idUser = '.$db->quote($params['idUser']).' and idTask = '.$db->quote($params['idTaskLocal']).' and idPlatform = '.$db->quote($params['idPlatform']).' and bSubmission = \'0\';');
       if (!count($_POST['sources']))
          return;
       $query = 'insert into tm_source_codes (idUser, idTask, idPlatform, sName, sSource, sParams, bActive) values';
