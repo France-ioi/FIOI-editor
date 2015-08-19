@@ -41,7 +41,6 @@ class FIOIEditorAjax {
          $rows[] = '('.$db->quote($params['idUser']).', '.$db->quote($params['idTaskLocal']).', '.$db->quote($params['idPlatform']).', '.$db->quote($sName).', '.$db->quote($sourceCode['sSource']).', '.$db->quote($sourceCode['sParams']).', '.self::boolToSql($sourceCode['bActive']).')';
       }
       $query .= implode(', ', $rows);
-      error_log($query);
       $db->exec($query);
    }
 
