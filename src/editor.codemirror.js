@@ -28,6 +28,10 @@ $.widget("fioi.editor", $.fioi.editor, {
     $(this._cm2.getWrapperElement()).hide();
   },
 
+  refresh: function() {
+    this._cm.refresh();
+  },
+
   _createNewContainer: function(id) {
     return this._superApply(arguments).hide();
   },
