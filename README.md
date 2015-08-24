@@ -40,3 +40,8 @@ Install dependencies:
 and generate the files:
 
    gulp compile
+
+
+## TODO
+
+The code has been made by someone using as many bad practices as he could, everything should be recoded from scratch.
