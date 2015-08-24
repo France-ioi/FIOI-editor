@@ -44,4 +44,4 @@ and generate the files:
 
 ## TODO
 
-The code has been made by someone using as many bad practices as he could, everything should be recoded from scratch.
+The code has many bad practices, it should be fixed in many ways, or rewritten from scratch.
