@@ -144,11 +144,14 @@ function setToNotModified() {
   dirty = false;
 }
 
+var editorExpertMode = false;
+
 function goMode() {
   ($('#bIsBasic').val() == 1) ? goBasicMode() : goExpertMode();
 }
 
 function goBasicMode() {
+  editorExpertMode = false;
   $("#buttonAddTestDiv").show();
   $("#sourcesEditor #docsTabList").hide();
   $("#sourcesEditor .CodeMirror").addClass('basic');
@@ -157,6 +160,7 @@ function goBasicMode() {
 }
 
 function goExpertMode() {
+  editorExpertMode = true;
   $("#buttonAddTestDiv").hide();    
   $("#sourcesEditor #docsTabList").show();
   $("#sourcesEditor .CodeMirror").removeClass('basic');
@@ -198,6 +202,7 @@ function startEditor() {
   }
   initButtons();
   var idActive = null;
+  var sActiveLang = null;
   for(var i= 0; i < userData.aSources.length; i++) {
     var source = userData.aSources[i];
     var params = source.sParams ? JSON.parse(source.sParams) : {};
@@ -205,13 +210,16 @@ function startEditor() {
         source.sSource, getLanguageFromServer(params.sLangProg));
     if (source.bActive == '1') {
       idActive = source.sName;
+      sActiveLang = getLanguageFromServer(params.sLangProg);
     }
   }
   if (idActive) {
-    // TODO: doesn't work...
     sourcesEditor.editor("show", idActive);
   }
-  selectFirstForComboLanguage();
+  // TODO: review this behaviour!
+  if (!editorExpertMode) {
+    selectFirstForComboLanguage();
+  }
   for(i= 0; i < userData.aTests.length; i++) {
     var test = userData.aTests[i];
     testsEditor.editor("openPair", test.sName, test.sName,
