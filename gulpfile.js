@@ -17,8 +17,8 @@ gulp.task('js', function() {
   return gulp.src(['src/editor.js','src/common.js','src/task.js','src/editor.codemirror.js','src/tester.js','src/evaluator.js'])
     .pipe(sourcemaps.init())
     .pipe(uglify())
-    .pipe(sourcemaps.write())
     .pipe(concat('fioi-editor.min.js'))
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest('dst'));
 });
 
